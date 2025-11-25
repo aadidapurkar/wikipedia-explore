@@ -1,5 +1,5 @@
-# Website for Lazily Explored Wikipedia Topics
-Wikipedia exploration, starting at some root topic `https://aadidapurkar.github.io/wikipedia-explore/`
+# [Website](https://aadidapurkar.github.io/wikipedia-explore/) for Lazily Explored Wikipedia Topics
+Wikipedia exploration, starting at some root topic 
 
 ### Prerequisites
 - Install [Node.js](https://nodejs.org/en/download)
