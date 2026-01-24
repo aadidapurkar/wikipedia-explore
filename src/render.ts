@@ -50,7 +50,7 @@ export const render = (s: State) => {
     });
   }
 
-  const graph = new Network(
+const graph = new Network(
     explorationGraphDiv,
     { nodes: s.graph.nodes, edges: s.graph.edges },
     {
@@ -60,12 +60,25 @@ export const render = (s: State) => {
       },
       physics: {
         enabled: true,
+        // Improving mobile visibility by spacing nodes out
+        barnesHut: {
+            gravitationalConstant: -2000,
+            centralGravity: 0.3,
+            springLength: 95,
+        }
       },
-      edges: {
-        color: { color: "#000000" },
-      },
-      interaction: { hover: true
-      }
+      interaction: { hover: true }
     },
-  );
+) ;
+
+graph.on("beforeDrawing", (ctx) => {
+  const width = ctx.canvas.width;
+  const height = ctx.canvas.height;
+  ctx.fillStyle = "#ffffff"; // Your desired background color
+  ctx.fillRect(0, 0, width, height);
+});
+
+graph.on("stabilizationIterationsDone", function () {
+    graph.fit();
+});
 };

@@ -1,6 +1,5 @@
-
 * {
-    font-family: "Tiktok Sans";
+  font-family: "Tiktok Sans";
 }
 
 #btnExploreTopic {
@@ -9,7 +8,6 @@
   padding: 0.5rem;
   margin-left: 0.5rem;
 }
-
 
 #inputTopic {
   width: 50%;
@@ -21,18 +19,77 @@
   flex-direction: row;
   width: 90%;
   justify-content: center; /* centers vertically if container has height */
-  align-items: center;     /* centers horizontally */
-  margin: 0 auto;          /* centers container itself in body */
+  align-items: center; /* centers horizontally */
+  margin: 0 auto; /* centers container itself in body */
   margin-top: 1rem;
   height: 10%;
 }
 
+@media (max-width: 500px) {
+  #topicContainer h1 {
+    font-size: 0.85rem;
+  }
+}
+
+
+#explorationContainer {
+  display: flex;
+  flex-direction: column !important;
+  height: 100vh; /* Give the container a defined height to fill the screen */
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+#btnDownload {
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  margin: 10px 0;
+  /* Other styles are inherited from your general 'button' selector */
+
+}
+
+#subtopicContainer {
+  flex: 0 0 auto; /* Don't let this grow or shrink automatically */
+  max-height: 20vh; /* Keep the list from taking over the screen */
+  overflow-y: auto;
+  width: 100%;
+  background-color: #f0f0f0 !important;
+}
+
+#explorationGraph {
+  flex: 1 0 400px; /* Grow to fill space, but never smaller than 400px */
+  width: 100%;
+  /* min-height: 400px; /* Explicit floor for the graph height */ 
+  background: #fff;
+}
+
+#subtopicContainer::-webkit-scrollbar {
+  width: 8px; /* Width for vertical scrollbar */
+  height: 8px; /* Height for horizontal scrollbar */
+  display: block; /* Ensure it is visible */
+}
+#subtopicContainer::-webkit-scrollbar-track {
+  background: #f1f1f1; /* The track (progress bar) */
+  border-radius: 10px;
+}
+
+#subtopicContainer::-webkit-scrollbar-thumb {
+  background: #888; /* The draggable bar */
+  border-radius: 10px;
+}
+
+#subtopicContainer::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darken on hover */
+}
+
+
 #topicContainer {
   display: flex;
-  flex-direction: row;       /* keep in a row */
-  align-items: center;       /* vertically center the h1 and buttons */
-  justify-content: center;   /* optional: horizontally center the group */
-  gap: 1rem;                 /* adds spacing between buttons and h1 */
+  flex-direction: row; /* keep in a row */
+  align-items: center; /* vertically center the h1 and buttons */
+  justify-content: center; /* optional: horizontally center the group */
+  gap: 1rem; /* adds spacing between buttons and h1 */
   margin: 1rem auto 0 auto;
   background-color: gainsboro;
   text-align: center;
@@ -41,60 +98,62 @@
   visibility: hidden;
 }
 
-#explorationContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 2rem;
-    margin: 1rem auto;
-    width: 95%;
-}
 
-#subtopicContainer, #explorationGraph {
-    display: flex;
-    flex: 1; /* This forces both divs to take up equal available space */
-    flex-wrap: wrap;
-    /* min-width: 0; Prevents flex items from overflowing */
-    background-color: #fff;
-    text-align: center;
-    border: 1px solid #ddd; /* Optional: helps visualize the containers */
-    /* min-height: 400px; /* Optional: ensures the graph area is visible */
-    flex-direction: row;
-    /* max-width: 45vw; */
 
+#subtopicContainer,
+#explorationGraph {
+  display: flex;
+  flex: 1; /* This forces both divs to take up equal available space */
+  flex-wrap: wrap;
+  /* min-width: 0; Prevents flex items from overflowing */
+  background-color: #fff;
+  text-align: center;
+  border: 1px solid #ddd; /* Optional: helps visualize the containers */
+  /* min-height: 400px; Optional: ensures the graph area is visible */
+  flex-direction: row;
+  /* max-width: 45vw; */
 }
 
 #explorationGraph {
-    height: 80vh; /* Set a fixed height for the graph area */
-    width: 100%;
-    overflow: hidden;
+  height: 80vh; /* Set a fixed height for the graph area */
+  width: 100%;
+  overflow: hidden;
 }
-#btnBack, #btnForward {
+#btnBack,
+#btnForward {
   height: fit-content;
   padding: 0.5rem;
 }
 
-
 @keyframes wobble {
-  0%   { transform: rotate(0deg) scale(1); }
-  25%  { transform: rotate(-1deg) scale(1.01); }
-  50%  { transform: rotate(1deg) scale(0.99); }
-  75%  { transform: rotate(-0.5deg) scale(1.005); }
-  100% { transform: rotate(0deg) scale(1); }
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-1deg) scale(1.01);
+  }
+  50% {
+    transform: rotate(1deg) scale(0.99);
+  }
+  75% {
+    transform: rotate(-0.5deg) scale(1.005);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
 }
 
-p {   
+p {
   margin: 0.5rem; /* top right bottom left*/
   width: fit-content;
   padding: 5px;
   border: 1px solid black;
-  animation: wobble 10s infinite ease-in-out; 
+  animation: wobble 10s infinite ease-in-out;
 }
 
 p:hover {
   background-color: black;
-  color:white;
+  color: white;
   cursor: pointer;
 }
 
@@ -109,7 +168,6 @@ p:hover {
   margin-top: 5px;
   visibility: hidden;
 }
-
 
 #selectSubtopicOrder {
   margin-left: 5px;

@@ -37,7 +37,7 @@ export class RootTopic implements Action {
       ...s,
       currTopic: 0,
       topics: [this.rootTopic],
-      graph: { nodes: [{id: this.rootTopic.title, label: this.rootTopic.title}], edges: [] }
+      graph: { nodes: [{id: this.rootTopic.title, label: this.rootTopic.title, color: "red"}], edges: [] }
     }
   }
 }
