@@ -40,13 +40,15 @@ state$.subscribe((s) => render(s))
 
 
 // MISC ----------------------------------------------------------------------
-// Clear topic input after submitting
+
+
+// Clear topic input after submitting for UX/UI purposes
 fromEvent(btnExploreTopic, "click").subscribe((_) => {
   inputTopic.value = ""
 })
 
 // (DEBUG) Log state 
-state$.subscribe(console.log)
+//state$.subscribe(console.log)
 
 
 

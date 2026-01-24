@@ -41,17 +41,35 @@
   visibility: hidden;
 }
 
-#subtopicContainer {
-  display: flex;
-  flex-wrap: wrap;
-  width: 80vw;
-  margin: 1rem auto 0 auto;
-  margin-top: 1rem;
-  background-color: #fff;
-  text-align: center;
-  
+#explorationContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+    margin: 1rem auto;
+    width: 95%;
 }
 
+#subtopicContainer, #explorationGraph {
+    display: flex;
+    flex: 1; /* This forces both divs to take up equal available space */
+    flex-wrap: wrap;
+    /* min-width: 0; Prevents flex items from overflowing */
+    background-color: #fff;
+    text-align: center;
+    border: 1px solid #ddd; /* Optional: helps visualize the containers */
+    /* min-height: 400px; /* Optional: ensures the graph area is visible */
+    flex-direction: row;
+    /* max-width: 45vw; */
+
+}
+
+#explorationGraph {
+    height: 80vh; /* Set a fixed height for the graph area */
+    width: 100%;
+    overflow: hidden;
+}
 #btnBack, #btnForward {
   height: fit-content;
   padding: 0.5rem;
@@ -67,7 +85,7 @@
 }
 
 p {   
-  margin: 1rem auto 1rem auto; /* top right bottom left*/
+  margin: 0.5rem; /* top right bottom left*/
   width: fit-content;
   padding: 5px;
   border: 1px solid black;

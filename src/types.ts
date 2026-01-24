@@ -1,4 +1,6 @@
-// All observables will map to an object of a class which have an apply method, mapping a reduced state to a new state
+import cytoscape, { 
+  type CytoscapeOptions // This is the standard name in @types/cytoscape
+} from 'cytoscape';// All observables will map to an object of a class which have an apply method, mapping a reduced state to a new state
 export interface Action {
   apply(s: State): State;
 }
@@ -16,7 +18,7 @@ export type State = {
   topics : Topic[]
   pref: SubtopicPref
   limit: number
-
+  graph: cytoscape.CytoscapeOptions;
 }
 
 // Web request types (Wikipedia API)
