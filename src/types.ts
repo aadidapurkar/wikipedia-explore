@@ -1,6 +1,6 @@
-import cytoscape, { 
-  type CytoscapeOptions // This is the standard name in @types/cytoscape
-} from 'cytoscape';// All observables will map to an object of a class which have an apply method, mapping a reduced state to a new state
+import type { Network, Node, Edge, Options } from 'vis-network';
+
+// All observables will map to an object of a class which have an apply method, mapping a reduced state to a new state
 export interface Action {
   apply(s: State): State;
 }
@@ -18,7 +18,7 @@ export type State = {
   topics : Topic[]
   pref: SubtopicPref
   limit: number
-  graph: cytoscape.CytoscapeOptions;
+  graph: { nodes: Node[]  ; edges: Edge[] }
 }
 
 // Web request types (Wikipedia API)

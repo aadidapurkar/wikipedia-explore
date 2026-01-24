@@ -1,3 +1,4 @@
+import { Network } from "vis-network";
 import cytoscape from "cytoscape";
 import type { State, Topic } from "./types";
 import { shuffleArray } from "./util";
@@ -49,20 +50,22 @@ export const render = (s: State) => {
     });
   }
 
-  // Destroy existing instance if it exists
-  if ((explorationGraphDiv as any).cy) {
-    (explorationGraphDiv as any).cy.destroy();
-  }
-
-  const cy = cytoscape({
-    ...s.graph,
-    container: explorationGraphDiv,
-  });
-
-  // Add this to handle resizing and fitting
-  cy.ready(() => {
-    cy.resize(); // Recalculates and matches the canvas to the container's size
-    cy.fit(); // Zooms/pans to make all nodes/edges visible within the viewport
-    cy.center(); // Centers the graph in the div
-  });
+  const graph = new Network(
+    explorationGraphDiv,
+    { nodes: s.graph.nodes, edges: s.graph.edges },
+    {
+      nodes: {
+        shape: "dot",
+        size: 16,
+      },
+      physics: {
+        enabled: true,
+      },
+      edges: {
+        color: { color: "#000000" },
+      },
+      interaction: { hover: true
+      }
+    },
+  );
 };
