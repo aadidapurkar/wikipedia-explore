@@ -1,7 +1,4 @@
-* {
-  font-family: "Tiktok Sans";
-}
-
+/* INPUT STYLING ------------------------------------------------------------------*/ 
 #btnExploreTopic {
   text-align: center;
   border: 1px solid black;
@@ -13,84 +10,46 @@
   width: 50%;
   font-size: 1.5rem;
 }
-
 .container {
   display: flex;
   flex-direction: row;
   width: 90%;
-  justify-content: center; /* centers vertically if container has height */
-  align-items: center; /* centers horizontally */
-  margin: 0 auto; /* centers container itself in body */
+  justify-content: center; 
+  align-items: center; 
+  margin: 0 auto;
   margin-top: 1rem;
   height: 10%;
 }
 
-@media (max-width: 500px) {
-  #topicContainer h1 {
-    font-size: 0.85rem;
-  }
+#stps {
+  text-align: center;
+  visibility: hidden;
 }
 
-
-#explorationContainer {
+#order {
   display: flex;
-  flex-direction: column !important;
-  height: 100vh; /* Give the container a defined height to fill the screen */
-  gap: 10px;
-  align-items: center;
   justify-content: center;
+  margin-top: 5px;
+  visibility: hidden;
 }
 
-#btnDownload {
-  width: fit-content;
-  padding: 0.5rem 1rem;
-  margin: 10px 0;
-  /* Other styles are inherited from your general 'button' selector */
-
+#selectSubtopicOrder {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
-#subtopicContainer {
-  flex: 0 0 auto; /* Don't let this grow or shrink automatically */
-  max-height: 20vh; /* Keep the list from taking over the screen */
-  overflow-y: auto;
-  width: 100%;
-  background-color: #f0f0f0 !important;
+#inputSubtopicLimit {
+  margin-left: 1rem;
+  margin-right: 5px;
 }
-
-#explorationGraph {
-  flex: 1 0 400px; /* Grow to fill space, but never smaller than 400px */
-  width: 100%;
-  /* min-height: 400px; /* Explicit floor for the graph height */ 
-  background: #fff;
-}
-
-#subtopicContainer::-webkit-scrollbar {
-  width: 8px; /* Width for vertical scrollbar */
-  height: 8px; /* Height for horizontal scrollbar */
-  display: block; /* Ensure it is visible */
-}
-#subtopicContainer::-webkit-scrollbar-track {
-  background: #f1f1f1; /* The track (progress bar) */
-  border-radius: 10px;
-}
-
-#subtopicContainer::-webkit-scrollbar-thumb {
-  background: #888; /* The draggable bar */
-  border-radius: 10px;
-}
-
-#subtopicContainer::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Darken on hover */
-}
-
 
 #topicContainer {
   display: flex;
-  flex-direction: row; /* keep in a row */
-  align-items: center; /* vertically center the h1 and buttons */
-  justify-content: center; /* optional: horizontally center the group */
+  flex-direction: row;
+  align-items: center; 
+  justify-content: center; 
   gap: 1rem; /* adds spacing between buttons and h1 */
-  margin: 1rem auto 0 auto;
+  margin: 0.5rem auto 1rem auto;
   background-color: gainsboro;
   text-align: center;
   width: fit-content;
@@ -98,31 +57,107 @@
   visibility: hidden;
 }
 
+/* todo - custom font size based on letter count of topic */
+@media (max-width: 500px) {
+  #topicContainer h1 {
+    font-size: 0.85rem;
+  }
+}
 
+
+/* EXPLORATION STYLING ------------------------------------------------------------------*/
+#explorationContainer {
+  display: flex;
+  flex-direction: column !important;
+  height: 100vh;
+  max-width: 50vw;
+  margin: 0 auto;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+#btnDownload {
+  padding: 0.5rem 1rem;
+}
+
+#subtopicContainer {
+  flex: 0 0 auto; /* Don't let this grow or shrink automatically */
+  max-height: 20vh; /* Keep the subtopic options list from taking over the screen */
+  overflow-y: auto; /* Enable vertical scrolling if subtopic content exceeds max-height */
+  width: 100%;
+  background-color: orange !important;
+}
+
+#subtopicContainer p {
+  background-color: white !important;
+}
+
+#subtopicContainer p:hover {
+  background-color: black !important;
+}
+
+#explorationGraph {
+  flex: 1 1 auto; /* Allow this to grow and shrink as needed */
+  width: 100%;
+  /* min-height: 400px; */
+  background: #fff;
+}
+
+#subtopicContainer::-webkit-scrollbar {
+  width: 8px; 
+  height: 8px;
+  display: block; /* Ensure it is visible */
+}
+#subtopicContainer::-webkit-scrollbar-track {
+  background: black; /* The track (progress bar) */
+  border-radius: 10px;
+}
+
+#subtopicContainer::-webkit-scrollbar-thumb {
+  background: white; /* The draggable bar */
+  border-radius: 10px;
+}
 
 #subtopicContainer,
 #explorationGraph {
   display: flex;
   flex: 1; /* This forces both divs to take up equal available space */
   flex-wrap: wrap;
-  /* min-width: 0; Prevents flex items from overflowing */
   background-color: #fff;
   text-align: center;
   border: 1px solid #ddd; /* Optional: helps visualize the containers */
-  /* min-height: 400px; Optional: ensures the graph area is visible */
   flex-direction: row;
-  /* max-width: 45vw; */
 }
 
 #explorationGraph {
-  height: 80vh; /* Set a fixed height for the graph area */
+  height: 50vh; /* Set a fixed height for the graph area */
   width: 100%;
   overflow: hidden;
 }
+
+/* BUTTON STYLING */
+button {
+  background-color: black;
+  color: white;
+}
+
+button:hover {
+  background-color: orange;
+  color: black;
+  cursor: pointer;
+}
+
 #btnBack,
 #btnForward {
   height: fit-content;
   padding: 0.5rem;
+}
+
+
+/* UNIVERSAL STYLING ------------------------------------------------------------------*/
+* {
+  font-family: "Tiktok Sans";
 }
 
 @keyframes wobble {
@@ -154,38 +189,5 @@ p {
 p:hover {
   background-color: black;
   color: white;
-  cursor: pointer;
-}
-
-#stps {
-  text-align: center;
-  visibility: hidden;
-}
-
-#order {
-  display: flex;
-  justify-content: center;
-  margin-top: 5px;
-  visibility: hidden;
-}
-
-#selectSubtopicOrder {
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-#inputSubtopicLimit {
-  margin-left: 1rem;
-  margin-right: 5px;
-}
-
-button {
-  background-color: black;
-  color: white;
-}
-
-button:hover {
-  background-color: orange;
-  color: black;
   cursor: pointer;
 }
