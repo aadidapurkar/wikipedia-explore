@@ -25,7 +25,7 @@ const topicText = document.getElementsByClassName("topicText")[0]!;
 const btnExploreTopic = document.getElementById(
   "btnExploreTopic"
 )! as HTMLButtonElement;
-
+const btnDL = document.getElementById("btnDownload")! as HTMLButtonElement;
 // MVC -----------------------------------------------------------------------------
 // (CONTROLLER) Merged stream of controller observables, mapped to Actions
 const action$ = merge(newTopic$, exploreSubtopic$, decrementTopic$, incrementTopic$, changeSubtopicOrdering$, changeSubtopicLimit$)
@@ -35,38 +35,45 @@ const state$ = action$.pipe(
   scan((accState : State , action: Action) => action.apply(accState), initialState)
 )
 
-// (VIEW Update view every time state changes
+// (VIEW) Update view every time state changes
 state$.subscribe((s) => render(s))
 
 
 // MISC ----------------------------------------------------------------------
-
 
 // Clear topic input after submitting for UX/UI purposes
 fromEvent(btnExploreTopic, "click").subscribe((_) => {
   inputTopic.value = ""
 })
 
-// (DEBUG) Log state 
-//state$.subscribe(console.log)
+//state$.subscribe(console.log) // (DEBUG) Log state 
 
+// Download graph as PNG
 const downloadGraph = () => {
+  // input canvas
   const container = document.getElementById("explorationGraph");
-  const canvas = container?.getElementsByTagName("canvas")[0] as HTMLCanvasElement;
+  const canvases = container?.getElementsByTagName("canvas");
+  const canvas = canvases?.[canvases.length - 1]; // only one canvas should be present
 
-  if (canvas) {
-    const imageURL = canvas.toDataURL("image/png");
-    const link = document.createElement("a");
-    link.href = imageURL;
-    link.download = "wiki-exploration-graph.png";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  } else {
-    console.error("Canvas not found.");
-  }
+  // export canvas
+  const exportCanvas = document.createElement("canvas");
+  exportCanvas.width = canvas!.width;
+  exportCanvas.height = canvas!.height;
+
+  const ctx = exportCanvas.getContext("2d")!; 
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+  ctx.drawImage(canvas!, 0, 0);
+
+  // download image
+  const imageURL = exportCanvas.toDataURL("image/png");
+  const link = document.createElement("a");
+  link.href = imageURL;
+  link.download = "wiki-exploration-graph.png";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 };
 
-document.getElementById("btnDownload")?.addEventListener("click", downloadGraph);
-
-
+// Download button event listener
+fromEvent(btnDL, "click").subscribe(downloadGraph);

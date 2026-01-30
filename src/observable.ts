@@ -29,6 +29,8 @@ const subtopicContainer = document.getElementById("subtopicContainer")!;
 const selectOrder = document.getElementById("order")! as HTMLSelectElement
 const inputLimit = document.getElementById("inputSubtopicLimit")! as HTMLInputElement
 
+// This file parses user inputs and maps them to Actions emitted as observables which are later merged and reduce an accumulated state
+
 // Change amount of shown subtopics
 export const changeSubtopicLimit$ = fromEvent<MouseEvent>(inputLimit, "input").pipe(
   map(_ => {
@@ -43,7 +45,6 @@ export const changeSubtopicOrdering$ = fromEvent<MouseEvent>(selectOrder, "chang
     return PREFS_ARR.includes(pref) ? new ChangeSubtopicPref(pref as SubtopicPref) : new ChangeSubtopicPref(PREFS_ARR[0] as SubtopicPref)
   })
 )
-
 
 // Go back a topic
 export const decrementTopic$ = fromEvent<MouseEvent>(btnBack, "click").pipe(
@@ -97,6 +98,8 @@ export const newTopic$ = fromEvent(btnExploreTopic, "click").pipe(
   map((topic: Topic) => new RootTopic(topic))
 );
 
+// Fetch subtopics from Wikipedia API
+// todo - better error handling and parsing
 export const getSubtopics$ = (topic: string) =>
   getRequest$<WikiLinksResponse>(
     `https://en.wikipedia.org/w/api.php?action=query&format=json&titles=${topic}&prop=links&pllimit=max&origin=*`,
@@ -108,7 +111,8 @@ export const getSubtopics$ = (topic: string) =>
       return page.links?.map((link: { title: any }) => link.title) ?? [];
     })
   );
-
+  
+// Generic GET request observable with error handling
 export const getRequest$ = <T>(
   url: string,
   parser: (res: Response) => Promise<T>

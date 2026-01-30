@@ -22,6 +22,7 @@ export type State = {
 }
 
 // Web request types (Wikipedia API)
+// todo - better parsing and error handling
 export type WikiSearchResponse = {
   batchcomplete: string;
   continue: {
@@ -41,6 +42,7 @@ export type WikiSearchResponse = {
   };
 };
 
+// todo - better parsing and error handling
 export type WikiLinksResponse = {
   query: {
     pages: {

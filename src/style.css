@@ -1,4 +1,4 @@
-/* INPUT STYLING ------------------------------------------------------------------*/ 
+/* INPUT STYLING ------------------------------------------------------------------*/
 #btnExploreTopic {
   text-align: center;
   border: 1px solid black;
@@ -10,35 +10,40 @@
   width: 50%;
   font-size: 1.5rem;
 }
+
 .container {
   display: flex;
   flex-direction: row;
   width: 90%;
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
   margin: 0 auto;
-  margin-top: 1rem;
   height: 10%;
 }
 
 #stps {
   text-align: center;
-  visibility: hidden;
+  visibility: hidden; /* hidden until a topic is explored */
+  font-size: 1.5rem;
+  margin: 0.5rem auto;
+  border: none !important;
+  font-weight: bold !important;
 }
 
 #order {
   display: flex;
   justify-content: center;
-  margin-top: 5px;
-  visibility: hidden;
+  visibility: hidden; /* hidden until a topic is explored */
 }
 
 #selectSubtopicOrder {
+  font-size: 1rem;
   margin-left: 5px;
   margin-right: 5px;
 }
 
 #inputSubtopicLimit {
+  font-size: 1rem;
   margin-left: 1rem;
   margin-right: 5px;
 }
@@ -46,15 +51,15 @@
 #topicContainer {
   display: flex;
   flex-direction: row;
-  align-items: center; 
-  justify-content: center; 
-  gap: 1rem; /* adds spacing between buttons and h1 */
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
   margin: 0.5rem auto 1rem auto;
   background-color: gainsboro;
   text-align: center;
   width: fit-content;
   padding: 0.5rem;
-  visibility: hidden;
+  visibility: hidden; /* hidden until a topic is explored */
 }
 
 /* todo - custom font size based on letter count of topic */
@@ -64,79 +69,96 @@
   }
 }
 
-
 /* EXPLORATION STYLING ------------------------------------------------------------------*/
 #explorationContainer {
-  display: flex;
-  flex-direction: column !important;
-  height: 100vh;
-  max-width: 50vw;
+  visibility: hidden; /* hidden until a topic is explored */
+  display: flex !important;
+  flex-direction: column;
+  height: 65vh;              /* your intended fixed viewport block */
+  max-width: 80vw;
   margin: 0 auto;
   gap: 10px;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;      /* children take full width */
+  justify-content: flex-start; /* stops vertical centering/jumping */
 }
 
 #btnDownload {
   padding: 0.5rem 1rem;
+  width: fit-content;
+  margin: 0.5rem auto;
+  font-size: 1rem;
+  visibility: hidden; /* hidden until a topic is explored */
+
 }
 
-#subtopicContainer {
-  flex: 0 0 auto; /* Don't let this grow or shrink automatically */
-  max-height: 20vh; /* Keep the subtopic options list from taking over the screen */
-  overflow-y: auto; /* Enable vertical scrolling if subtopic content exceeds max-height */
-  width: 100%;
-  background-color: orange !important;
-}
-
+/* Subtopic pills */
 #subtopicContainer p {
   background-color: white !important;
 }
 
 #subtopicContainer p:hover {
   background-color: black !important;
+  color: white;
 }
 
-#explorationGraph {
-  flex: 1 1 auto; /* Allow this to grow and shrink as needed */
-  width: 100%;
-  /* min-height: 400px; */
-  background: #fff;
-}
-
+/* Scrollbar styling (WebKit) */
 #subtopicContainer::-webkit-scrollbar {
-  width: 8px; 
+  width: 8px;
   height: 8px;
-  display: block; /* Ensure it is visible */
+  display: block;
 }
+
 #subtopicContainer::-webkit-scrollbar-track {
-  background: black; /* The track (progress bar) */
+  background: black;
   border-radius: 10px;
 }
 
 #subtopicContainer::-webkit-scrollbar-thumb {
-  background: white; /* The draggable bar */
+  background: white;
   border-radius: 10px;
 }
 
-#subtopicContainer,
-#explorationGraph {
+/* Subtopic container: fixed-ish height, scrollable */
+#subtopicContainer {
+  flex: 0 0 20vh;            /* fixed basis */
+  min-height: 150px;
+  max-height: 25vh;
+  overflow-y: auto;
+
   display: flex;
-  flex: 1; /* This forces both divs to take up equal available space */
-  flex-wrap: wrap;
-  background-color: #fff;
-  text-align: center;
-  border: 1px solid #ddd; /* Optional: helps visualize the containers */
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  background-color: orange !important;
+  text-align: center;
+  border: 1px solid black;
 }
 
+/* Graph container: fill remaining space */
 #explorationGraph {
-  height: 50vh; /* Set a fixed height for the graph area */
+  flex: 1 1 auto;
+  min-height: 0;             /* critical so the flex child can shrink + allow scroll/fit */
   width: 100%;
-  overflow: hidden;
+  position: relative;
+  overflow: hidden;          /* contain canvas */
+  border: 1px solid black;
+  background-color: white;
 }
 
-/* BUTTON STYLING */
+/* vis.js canvas sizing */
+.vis-network {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* BUTTON STYLING ------------------------------------------------------------------*/
 button {
   background-color: black;
   color: white;
@@ -152,8 +174,9 @@ button:hover {
 #btnForward {
   height: fit-content;
   padding: 0.5rem;
-}
+  font-size: 1rem;
 
+}
 
 /* UNIVERSAL STYLING ------------------------------------------------------------------*/
 * {
@@ -161,25 +184,16 @@ button:hover {
 }
 
 @keyframes wobble {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  25% {
-    transform: rotate(-1deg) scale(1.01);
-  }
-  50% {
-    transform: rotate(1deg) scale(0.99);
-  }
-  75% {
-    transform: rotate(-0.5deg) scale(1.005);
-  }
-  100% {
-    transform: rotate(0deg) scale(1);
-  }
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-1deg) scale(1.01); }
+  50% { transform: rotate(1deg) scale(0.99); }
+  75% { transform: rotate(-0.5deg) scale(1.005); }
+  100% { transform: rotate(0deg) scale(1); }
 }
 
 p {
-  margin: 0.5rem; /* top right bottom left*/
+  font-size: 1rem;
+  margin: 0.5rem;
   width: fit-content;
   padding: 5px;
   border: 1px solid black;
@@ -190,4 +204,10 @@ p:hover {
   background-color: black;
   color: white;
   cursor: pointer;
+}
+
+html, body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
 }

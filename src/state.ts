@@ -1,5 +1,7 @@
-import type { ElementDefinition } from "cytoscape";
 import type { Action, State, SubtopicPref, Topic } from "./types";
+
+// This file defines Actions, which take some input and define a function which maps a state to a new state, 
+// with respect to the input which is available in the form of instance variables in the class.
 
 // Initial state: no current topic, and no known topics
 export const initialState: State = {
@@ -37,7 +39,7 @@ export class RootTopic implements Action {
       ...s,
       currTopic: 0,
       topics: [this.rootTopic],
-      graph: { nodes: [{id: this.rootTopic.title, label: this.rootTopic.title, color: "red"}], edges: [] }
+      graph: { nodes: [{id: this.rootTopic.title, label: this.rootTopic.title, color: "orange"}], edges: [] }
     }
   }
 }
@@ -51,7 +53,7 @@ export class AddTopic implements Action {
   apply(s: State): State {
     const parentTopic = s.topics[this.currTopicIndex];
     // Create new node and edge
-    const newNode = { id: this.newTopic.title, label: this.newTopic.title };
+    const newNode = { id: this.newTopic.title, label: this.newTopic.title, color: "black"};
     const newEdge = {
         id: `${parentTopic.title}-${this.newTopic.title}`,
         from: parentTopic.title,
