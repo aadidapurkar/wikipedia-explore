@@ -8,11 +8,12 @@ import {
   catchError,
   filter,
   merge,
+  concat
 } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
 import { getUrlWikiTopicQueryApi, jsonParser } from "./util";
 import { type WikiSearchResponse, type Topic, type WikiLinksResponse, PREFS_ARR, type SubtopicPref } from "./types";
-import { AddTopic, ChangeSubtopicLimit, ChangeSubtopicPref, CurrTopicIdxChange, RootTopic } from "./state";
+import { AddTopic, ChangeSubtopicLimit, ChangeSubtopicPref, CurrTopicIdxChange, RootTopic, SetLoading } from "./state";
 
 // HTML elements
 const inputTopic = document.getElementById("inputTopic")! as HTMLInputElement;
@@ -90,21 +91,33 @@ export const enterPress$ = fromEvent<KeyboardEvent>(inputTopic, 'keydown').pipe(
 export const newTopic$ = merge(exploreTopic$, enterPress$).pipe(
   map((_) => inputTopic.value),
   switchMap((topic) =>
-    getRequest$<WikiSearchResponse>(getUrlWikiTopicQueryApi(topic), jsonParser)
-  ),
-  map((res) => res.query.search[0].title),
-  switchMap((title) =>
-    getSubtopics$(title).pipe(
-      map(
-        (subtopics) =>
-          ({
-            title: title,
-            subtopics: subtopics,
-          } as Topic)
+    // concat: Do the first thing (Load), then the second thing (Fetch)
+    concat(
+      // 1. Emit loading action immediately
+      of(new SetLoading(true)), 
+      
+      // 2. Perform the request sequence
+      getRequest$<WikiSearchResponse>(getUrlWikiTopicQueryApi(topic), jsonParser).pipe(
+        map((res) => res.query.search[0].title),
+        switchMap((title) =>
+          getSubtopics$(title).pipe(
+            map((subtopics) => ({
+                title: title,
+                subtopics: subtopics,
+              } as Topic)
+            )
+          )
+        ),
+        map((topic: Topic) => new RootTopic(topic)),
+        // Optional: Catch errors to stop loading if the request fails
+        catchError((err) => {
+            console.error(err);
+            // You might want a "LoadError" action here, but for now just stop loading
+            return of(new SetLoading(false)); 
+        })
       )
     )
-  ),
-  map((topic: Topic) => new RootTopic(topic))
+  )
 );
 
 // Fetch subtopics from Wikipedia API

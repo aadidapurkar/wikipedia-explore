@@ -9,7 +9,15 @@ export const initialState: State = {
   pref: "default",
   limit: 500,
   graph: { nodes: [], edges: []},
+  isLoading: false
 };
+
+export class SetLoading implements Action {
+  constructor(public readonly isLoading: boolean) {}
+  apply(s: State): State {
+    return { ...s, isLoading: this.isLoading };
+  }
+}
 
 export class ChangeSubtopicLimit implements Action {
   constructor(public readonly limit: number) {}
@@ -39,7 +47,8 @@ export class RootTopic implements Action {
       ...s,
       currTopic: 0,
       topics: [this.rootTopic],
-      graph: { nodes: [{id: this.rootTopic.title, label: this.rootTopic.title, color: "orange"}], edges: [] }
+      graph: { nodes: [{id: this.rootTopic.title, label: this.rootTopic.title, color: "orange"}], edges: [] },
+      isLoading: false // <--- Data received, stop loading
     }
   }
 }

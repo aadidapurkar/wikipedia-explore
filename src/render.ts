@@ -15,7 +15,7 @@ export const render = (s: State) => {
   const explorationGraphDiv = document.getElementById("explorationGraph")!;
   const btnDL = document.getElementById("btnDownload")! as HTMLButtonElement;
   const explorationContainer = document.getElementById("explorationContainer")!; 
-
+  const loader = document.getElementById("loader")!; // Select loader
   // make elements visible once a topic is explored
   if (s.currTopic !== undefined) {
     topicContainer.style.visibility = "visible";
@@ -24,7 +24,31 @@ export const render = (s: State) => {
     btnDL.style.visibility = "visible";
     explorationContainer.style.visibility = "visible";
   }
+  // loading 
+  if (s.isLoading) {
+    // to do this is a lot of dry code and can be made more concise
+    console.log("still loading")
+    loader.classList.remove("hidden");
+    console.log("content is loaded")
+    topicContainer.style.visibility = "hidden"
+    subtopicContainer.style.visibility = "hidden"
+    explorationContainer.style.visibility = "hidden"
+    explorationGraphDiv.style.visibility = "hidden"
+    btnDL.style.visibility = "hidden"
+    stps.style.visibility = "hidden";
+    selectOrder.style.visibility = "hidden"
+    return; // prevent below code from executing
+  } else {
+    loader.classList.add("hidden");
+    topicContainer.style.visibility = "visible"
+    subtopicContainer.style.visibility = "visible"
+    explorationContainer.style.visibility = "visible"
+    explorationGraphDiv.style.visibility = "visible"
+    btnDL.style.visibility = "visible"
+    stps.style.visibility = "visible";
+    selectOrder.style.visibility = "visible"
 
+  }
   // heading
   stepsText.textContent = `${s.currTopic!}`;
   topicText.textContent = s.topics[s.currTopic!].title;

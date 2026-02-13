@@ -19,6 +19,7 @@ export type State = {
   pref: SubtopicPref
   limit: number
   graph: { nodes: Node[]  ; edges: Edge[] }
+  isLoading: boolean;
 }
 
 // Web request types (Wikipedia API)

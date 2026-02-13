@@ -1,4 +1,5 @@
  custom font size based on letter count of topic
- better responsive design for mobile
- better graph downloading quality
- better graph visualisation in terms of canvas size, text size, especially on mobile
+
+ toast shouldnt be open by default and then closed, swap this behaviour around
+ 
+ make code more concise and adopt dry, make an effort later to go through entire codebase and clean up code and make it nice
