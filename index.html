@@ -1,46 +1,106 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wiki Explore</title>
-    <link rel="icon" type="image/x-icon" href="/wikipedia-explore/assets/favicon-CjuuyoZc.png" />
+    <link rel="icon" type="image/x-icon" href="./assets/favicon-CjuuyoZc.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=TikTok+Sans:opsz,wght@12..36,300..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/wikipedia-explore/assets/index-CqU1ZdEd.js"></script>
-    <link rel="stylesheet" crossorigin href="/wikipedia-explore/assets/index-CPpWA6DZ.css">
+    <script type="module" crossorigin src="./assets/index-DRoQlCCE.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Dfssu_hM.css">
   </head>
   <body>
     <div class="container">
-      <input type="text" id="inputTopic" placeholder="Enter root topic..." />
-      <button type="submit" id="btnExploreTopic">Explore topic!</button>
+      <div id="toast" class="toast" role="alert" aria-live="assertive">
+        <span class="toast-message"
+          >Welcome to Wikipedia Explorer! We detected that it's your first time
+          on the site! So, we're providing you with some tooltips which you can
+          access by hovering over and clicking on elements on this page! If
+          you're a little lost, these might help, but if you don't want them,
+          you can also turn them on/off at your discretion :)
+        </span>
+        <button class="toast-close" onclick="closeToast()">&times;</button>
+      </div>
+      <div
+        class="rootTopicContainer tooltip"
+        data-tip='This query decides the topic you start your exploration from. Keep your query short and title-like, e.g instead of "How to lose weight", try "Weight Loss"'
+      >
+        <input
+          type="text"
+          id="inputTopic"
+          placeholder="Enter root topic..."
+          autocomplete="off"
+        />
+        <button type="submit" id="btnExploreTopic">Explore</button>
+        <div id="tooltip-label">
+            <span>Toggle</span>
+            <span>Tooltips</span>
+        </div>
+        
+        <label class="switch">
+          <input id="tooltipSwitch" type="checkbox" />
+          <span class="slider"></span>
+        </label>
+      </div>
     </div>
 
-    <div id="order">
+    <div
+      id="order"
+      class="tooltip"
+      data-tip="Here, you can shuffle the related topics below, as well as reduce how many are shown to you. "
+    >
       <select id="selectSubtopicOrder">
-         <option disabled selected hidden>Set order</option>
-        <option value="default">Default</option>
+        <option disabled selected hidden>Set order</option>
+        <!-- <option value="default">Default</option> -->
         <option value="random">Random</option>
       </select>
 
       <input type="number" id="inputSubtopicLimit" placeholder="Set Limit" />
     </div>
 
-    <p id="stps"><span id="stepsAway"></span> steps away from root</p>
-    <div id="topicContainer">
+    <div
+      class="stepsAway tooltip"
+      data-tip="This text shows you how many topic clicks you are away from the root topic you first provided"
+    >
+      <p id="stps"><span id="stepsAway"></span> steps away from root</p>
+    </div>
+    <div
+      id="topicContainer"
+      class="tooltip"
+      data-tip="Here, you can go backwards and forwards between the topics you've explored so far."
+    >
       <button id="btnBack">Back</button>
       <h1 class="topicText"></h1>
       <button id="btnForward">Forward</button>
     </div>
-    
+
     <div id="explorationContainer">
-      <div id="subtopicContainer"></div>
-      <button id="btnDownload"> Download Graph Image </button>
-      <div id="explorationGraph"></div>
+      <div
+        id="subtopicWrapper"
+        class="tooltip"
+        data-tip="Here, you are shown the related topics of the currently selected topic. Click a related topic to explore it."
+      >
+        <div id="subtopicContainer"></div>
+      </div>
+      <button
+        id="btnDownload"
+        class="tooltip"
+        data-tip="Save the graph you can see below as an image to your device."
+      >
+        Download Graph Image
+      </button>
+      <div
+        id="graphWrapper"
+        class="tooltip"
+        data-tip="Here, you can see a visual representation of your exploration so far."
+      >
+        <div id="explorationGraph" class="tooltip" data-tip=""></div>
+      </div>
     </div>
 
   </body>
