@@ -7,6 +7,7 @@ import {
   of,
   catchError,
   filter,
+  merge,
 } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
 import { getUrlWikiTopicQueryApi, jsonParser } from "./util";
@@ -78,7 +79,15 @@ export const exploreSubtopic$ = fromEvent<MouseEvent>(subtopicContainer, "click"
 );
 
 // Initiate the root topic
-export const newTopic$ = fromEvent(btnExploreTopic, "click").pipe(
+export const exploreTopic$ =  fromEvent(btnExploreTopic, "click")
+// UX optimisation, enter explores a topic
+export const enterPress$ = fromEvent<KeyboardEvent>(inputTopic, 'keydown').pipe(
+  // Filter for the Enter key
+  filter(event => event.key === 'Enter')
+);
+
+
+export const newTopic$ = merge(exploreTopic$, enterPress$).pipe(
   map((_) => inputTopic.value),
   switchMap((topic) =>
     getRequest$<WikiSearchResponse>(getUrlWikiTopicQueryApi(topic), jsonParser)

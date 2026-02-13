@@ -3,6 +3,7 @@ import { fromFetch } from "rxjs/fetch";
 import "./style.css";
 import {
   catchError,
+  filter,
   from,
   fromEvent,
   fromEventPattern,
@@ -14,7 +15,7 @@ import {
   scan,
   switchMap,
 } from "rxjs";
-import { decrementTopic$, incrementTopic$, newTopic$, exploreSubtopic$, changeSubtopicOrdering$, changeSubtopicLimit$ } from "./observable";
+import { decrementTopic$, incrementTopic$, newTopic$, exploreSubtopic$, changeSubtopicOrdering$, changeSubtopicLimit$, enterPress$, exploreTopic$ } from "./observable";
 import { initialState } from "./state";
 import type { Action, State, Topic } from "./types";
 import { render } from "./render";
@@ -42,8 +43,8 @@ state$.subscribe((s) => render(s))
 // MISC ----------------------------------------------------------------------
 
 // Clear topic input after submitting for UX/UI purposes
-fromEvent(btnExploreTopic, "click").subscribe((_) => {
-  inputTopic.value = ""
+merge(exploreTopic$, enterPress$).subscribe((_) => {
+inputTopic.value = ""
 })
 
 //state$.subscribe(console.log) // (DEBUG) Log state 
@@ -77,3 +78,5 @@ const downloadGraph = () => {
 
 // Download button event listener
 fromEvent(btnDL, "click").subscribe(downloadGraph);
+
+
