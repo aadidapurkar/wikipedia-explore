@@ -8,7 +8,7 @@ export const initialState: State = {
   topics: [],
   pref: "default",
   limit: 500,
-  graph: { nodes: [], edges: []}
+  graph: { nodes: [], edges: []},
 };
 
 export class ChangeSubtopicLimit implements Action {

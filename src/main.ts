@@ -19,6 +19,7 @@ import { decrementTopic$, incrementTopic$, newTopic$, exploreSubtopic$, changeSu
 import { initialState } from "./state";
 import type { Action, State, Topic } from "./types";
 import { render } from "./render";
+import { closeToast } from "./util";
 
 // HTML elem -----------------------------------------------------------------------------
 const inputTopic = document.getElementById("inputTopic")! as HTMLInputElement;
@@ -26,7 +27,10 @@ const topicText = document.getElementsByClassName("topicText")[0]!;
 const btnExploreTopic = document.getElementById(
   "btnExploreTopic"
 )! as HTMLButtonElement;
+const toast = document.getElementById('toast')!;
 const btnDL = document.getElementById("btnDownload")! as HTMLButtonElement;
+const btnToastClose = document.querySelector(".toast-close")! as HTMLButtonElement;
+const tooltipSwitch = document.getElementById("tooltipSwitch")! as HTMLInputElement
 // MVC -----------------------------------------------------------------------------
 // (CONTROLLER) Merged stream of controller observables, mapped to Actions
 const action$ = merge(newTopic$, exploreSubtopic$, decrementTopic$, incrementTopic$, changeSubtopicOrdering$, changeSubtopicLimit$)
@@ -41,13 +45,12 @@ state$.subscribe((s) => render(s))
 
 
 // MISC ----------------------------------------------------------------------
+//state$.subscribe(console.log) // (DEBUG) Log state 
 
 // Clear topic input after submitting for UX/UI purposes
 merge(exploreTopic$, enterPress$).subscribe((_) => {
 inputTopic.value = ""
 })
-
-//state$.subscribe(console.log) // (DEBUG) Log state 
 
 // Download graph as PNG
 const downloadGraph = () => {
@@ -80,3 +83,40 @@ const downloadGraph = () => {
 fromEvent(btnDL, "click").subscribe(downloadGraph);
 
 
+// local storage for checking first time page load for tooltip showing
+if (typeof(Storage) !== "undefined") {
+  // Get visited before status
+  const visitedBefore = localStorage.getItem("visitedBefore")
+
+  if (visitedBefore !== null) {
+    // User has visited before, hide tooltips this session
+    document.body.classList.add("no-tooltips");
+    closeToast()
+    console.log("Detected previous visit! Tooltips hidden.");
+  } else {
+    // User has not visited before, add to local storage but don't hide tooltips this session
+    localStorage.setItem("visitedBefore", "true")
+    console.log("No previous visit detected! Tooltips will be shown.");
+    tooltipSwitch.checked = !document.body.classList.contains("no-tooltips");
+    setTimeout(closeToast, 15000)
+  }
+
+} else {
+  console.log("DEBUG No web browser local storage support ")
+}
+
+// Close toast on click
+fromEvent(btnToastClose, "click").subscribe(() => closeToast());
+
+fromEvent(tooltipSwitch, "change").subscribe((e) => {
+  const isChecked = (e.target as HTMLInputElement).checked;
+  if (isChecked) {
+    // Switch ON -> Show Tooltips
+    document.body.classList.remove("no-tooltips");
+    console.log("Tooltips enabled");
+  } else {
+    // Switch OFF -> Hide Tooltips
+    document.body.classList.add("no-tooltips");
+    console.log("Tooltips disabled");
+  }
+});

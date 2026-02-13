@@ -12,3 +12,7 @@ export const shuffleArray = <T>(arr: T[]): T[] => {
   }
   return result;
 }
+
+export const closeToast = () => {
+  document.getElementById('toast')!.classList.add("hidden")
+}
