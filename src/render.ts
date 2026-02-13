@@ -49,6 +49,9 @@ export const render = (s: State) => {
     selectOrder.style.visibility = "visible"
 
   }
+  if (s.currTopic === undefined || s.topics.length === 0) {
+    return;
+  }
   // heading
   stepsText.textContent = `${s.currTopic!}`;
   topicText.textContent = s.topics[s.currTopic!].title;
