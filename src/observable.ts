@@ -28,7 +28,7 @@ const btnFwd = document.getElementById(
   "btnForward"
 )! as HTMLButtonElement;
 const subtopicContainer = document.getElementById("subtopicContainer")!;
-const selectOrder = document.getElementById("order")! as HTMLSelectElement
+const selectOrder = document.getElementById("selectSubtopicOrder")! as HTMLSelectElement
 const inputLimit = document.getElementById("inputSubtopicLimit")! as HTMLInputElement
 
 // This file parses user inputs and maps them to Actions emitted as observables which are later merged and reduce an accumulated state

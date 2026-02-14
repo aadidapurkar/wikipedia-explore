@@ -1,6 +1,6 @@
 import { Network } from "vis-network";
 import type { State, Topic } from "./types";
-import { shuffleArray } from "./util";
+import { setVisibility, shuffleArray } from "./util";
 
 // A function which takes a state and updates the view correspondingly
 
@@ -17,47 +17,33 @@ export const render = (s: State) => {
   const btnDL = document.getElementById("btnDownload")! as HTMLButtonElement;
   const explorationContainer = document.getElementById("explorationContainer")!;
   const loader = document.getElementById("loader")!; // Select loader
-  // make elements visible once a topic is explored
+
+  // make elements visible only once a topic is explored
   if (s.currTopic !== undefined) {
-    topicContainer.style.visibility = "visible";
-    stps.style.visibility = "visible";
-    selectOrder.style.visibility = "visible";
-    btnDL.style.visibility = "visible";
-    explorationContainer.style.visibility = "visible";
+    setVisibility([topicContainer,stps,selectOrder,btnDL,explorationContainer],"visible")
   }
-  // loading
+
+
   if (s.isLoading) {
-    // to do this is a lot of dry code and can be made more concise
-    console.log("still loading");
     loader.classList.remove("hidden");
-    console.log("content is loaded");
-    topicContainer.style.visibility = "hidden";
-    subtopicContainer.style.visibility = "hidden";
-    explorationContainer.style.visibility = "hidden";
-    explorationGraphDiv.style.visibility = "hidden";
-    btnDL.style.visibility = "hidden";
-    stps.style.visibility = "hidden";
-    selectOrder.style.visibility = "hidden";
+    setVisibility([topicContainer, subtopicContainer, explorationContainer, explorationGraphDiv, btnDL, stps, selectOrder], "hidden")
     return; // prevent below code from executing
   } else {
     loader.classList.add("hidden");
-    topicContainer.style.visibility = "visible";
-    subtopicContainer.style.visibility = "visible";
-    explorationContainer.style.visibility = "visible";
-    explorationGraphDiv.style.visibility = "visible";
-    btnDL.style.visibility = "visible";
-    stps.style.visibility = "visible";
-    selectOrder.style.visibility = "visible";
+    setVisibility([topicContainer, subtopicContainer, explorationContainer, explorationGraphDiv, btnDL, stps, selectOrder], "visible")
   }
+
+  // extra guard check
   if (s.currTopic === undefined || s.topics.length === 0) {
     return;
   }
-  // heading
+
+  // set heading
   stepsText.textContent = `${s.currTopic!}`;
   topicText.textContent = s.topics[s.currTopic!].title;
   topicText.id = `${s.currTopic!}`;
 
-  // subtopics (randomly shuffle before displaying)
+  // set subtopics (randomly shuffle before displaying if pref is random)
   subtopicContainer.innerHTML = "";
   const topic: Topic = s.topics[s.currTopic!];
   const shuffledTopics =
@@ -72,12 +58,11 @@ export const render = (s: State) => {
     return p;
   });
 
-  subtopicElems.forEach((st) => {
-    subtopicContainer.appendChild(st);
-  });
+  subtopicContainer.append(...subtopicElems); // this has better DOM performance than appendChild 1 by 1 in a for loop
 
+  // Render graph
   if (!graph) {
-    // Graph hasn't been initialised yet
+    // CASE Graph hasn't been initialised yet
     graph = new Network(
       explorationGraphDiv,
       { nodes: s.graph.nodes, edges: s.graph.edges },
@@ -85,6 +70,9 @@ export const render = (s: State) => {
         nodes: {
           shape: "dot",
           size: 16,
+          widthConstraint: {
+            maximum: 75 // Force text wrapping for long topic names
+          }
         },
         physics: {
           enabled: true,

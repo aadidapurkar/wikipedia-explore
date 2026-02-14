@@ -16,3 +16,7 @@ export const shuffleArray = <T>(arr: T[]): T[] => {
 export const closeToast = () => {
   document.getElementById('toast')!.classList.add("hidden")
 }
+
+export const setVisibility = (elements: HTMLElement[], visibility: "visible" | "hidden") => {
+  elements.forEach(el => el.style.visibility = visibility);
+};
