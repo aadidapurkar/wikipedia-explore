@@ -1,4 +1,4 @@
 todo:
 ai input middleman parsing gemini flash api
 remove and fix use of any typing in observable.ts
-better request error handling
+graceful request error handling in case wikipedia changes api
