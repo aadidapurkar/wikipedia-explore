@@ -1,3 +1,4 @@
 todo:
-ai relevancy gemini flash api
-ui - user clicks enter key -> explore-topic clicked
+ai input middleman parsing gemini flash api
+remove and fix use of any typing in observable.ts
+better request error handling
