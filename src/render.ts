@@ -4,6 +4,7 @@ import { shuffleArray } from "./util";
 
 // A function which takes a state and updates the view correspondingly
 
+let graph: Network | null = null;
 export const render = (s: State) => {
   // HTML elems
   const topicContainer = document.getElementById("topicContainer")!;
@@ -14,7 +15,7 @@ export const render = (s: State) => {
   const selectOrder = document.getElementById("order")!;
   const explorationGraphDiv = document.getElementById("explorationGraph")!;
   const btnDL = document.getElementById("btnDownload")! as HTMLButtonElement;
-  const explorationContainer = document.getElementById("explorationContainer")!; 
+  const explorationContainer = document.getElementById("explorationContainer")!;
   const loader = document.getElementById("loader")!; // Select loader
   // make elements visible once a topic is explored
   if (s.currTopic !== undefined) {
@@ -24,30 +25,29 @@ export const render = (s: State) => {
     btnDL.style.visibility = "visible";
     explorationContainer.style.visibility = "visible";
   }
-  // loading 
+  // loading
   if (s.isLoading) {
     // to do this is a lot of dry code and can be made more concise
-    console.log("still loading")
+    console.log("still loading");
     loader.classList.remove("hidden");
-    console.log("content is loaded")
-    topicContainer.style.visibility = "hidden"
-    subtopicContainer.style.visibility = "hidden"
-    explorationContainer.style.visibility = "hidden"
-    explorationGraphDiv.style.visibility = "hidden"
-    btnDL.style.visibility = "hidden"
+    console.log("content is loaded");
+    topicContainer.style.visibility = "hidden";
+    subtopicContainer.style.visibility = "hidden";
+    explorationContainer.style.visibility = "hidden";
+    explorationGraphDiv.style.visibility = "hidden";
+    btnDL.style.visibility = "hidden";
     stps.style.visibility = "hidden";
-    selectOrder.style.visibility = "hidden"
+    selectOrder.style.visibility = "hidden";
     return; // prevent below code from executing
   } else {
     loader.classList.add("hidden");
-    topicContainer.style.visibility = "visible"
-    subtopicContainer.style.visibility = "visible"
-    explorationContainer.style.visibility = "visible"
-    explorationGraphDiv.style.visibility = "visible"
-    btnDL.style.visibility = "visible"
+    topicContainer.style.visibility = "visible";
+    subtopicContainer.style.visibility = "visible";
+    explorationContainer.style.visibility = "visible";
+    explorationGraphDiv.style.visibility = "visible";
+    btnDL.style.visibility = "visible";
     stps.style.visibility = "visible";
-    selectOrder.style.visibility = "visible"
-
+    selectOrder.style.visibility = "visible";
   }
   if (s.currTopic === undefined || s.topics.length === 0) {
     return;
@@ -76,49 +76,54 @@ export const render = (s: State) => {
     subtopicContainer.appendChild(st);
   });
 
-  explorationGraphDiv.innerHTML = "";
-  const graph = new Network(
-    explorationGraphDiv,
-    { nodes: s.graph.nodes, edges: s.graph.edges },
-    {
-      nodes: {
-        shape: "dot",
-        size: 16,
-      },
-      physics: {
-        enabled: true,
-        // Improving mobile visibility by spacing nodes out
-        barnesHut: {
-          gravitationalConstant: -1000,
-          centralGravity: 0.5,
-          springLength: 70,
+  if (!graph) {
+    // Graph hasn't been initialised yet
+    graph = new Network(
+      explorationGraphDiv,
+      { nodes: s.graph.nodes, edges: s.graph.edges },
+      {
+        nodes: {
+          shape: "dot",
+          size: 16,
         },
+        physics: {
+          enabled: true,
+          // Improving mobile visibility by spacing nodes out
+          barnesHut: {
+            gravitationalConstant: -1000,
+            centralGravity: 0.5,
+            springLength: 70,
+          },
+        },
+        interaction: { hover: true },
       },
-      interaction: { hover: true },
-    },
-  );
+    );
 
-  graph.on("beforeDrawing", (ctx) => {
-    const width = ctx.canvas.width;
-    const height = ctx.canvas.height;
-    ctx.fillStyle = "#ffffff"; // Your desired background color
-    ctx.fillRect(0, 0, width, height);
-  });
+    graph.on("beforeDrawing", (ctx) => {
+      const width = ctx.canvas.width;
+      const height = ctx.canvas.height;
+      ctx.fillStyle = "#ffffff"; 
+      ctx.fillRect(0, 0, width, height);
+    });
 
-  graph.on("stabilizationIterationsDone", () => {
-    graph.setSize("100%", "100%");
-    graph.redraw();
-    graph.fit({ animation: true });
-  });
+    graph.on("stabilizationIterationsDone", () => {
+      graph!.setSize("100%", "100%");
+      graph!.redraw();
+      graph!.fit({ animation: true });
+    });
 
-  const resizeObserver = new ResizeObserver(() => {
-    graph.setSize("100%", "100%"); // Quotes needed!
-    graph.redraw();
-    graph.fit();
-  });
-  resizeObserver.observe(explorationGraphDiv!);
+    const resizeObserver = new ResizeObserver(() => {
+      graph!.setSize("100%", "100%");
+      graph!.redraw();
+      graph!.fit();
+    });
+    resizeObserver.observe(explorationGraphDiv!);
 
-  graph.on("dragEnd", () => {
-    setTimeout(() => graph.fit({ animation: true }), 100);
-  });
+    graph.on("dragEnd", () => {
+      setTimeout(() => graph!.fit({ animation: true }), 100);
+    });
+  } else {
+    // Instead of recreating the graph, just update the node/edge data on subsequent renders
+    graph.setData({ nodes: s.graph.nodes, edges: s.graph.edges });
+  }
 };
