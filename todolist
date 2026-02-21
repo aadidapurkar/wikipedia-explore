@@ -1,5 +1,8 @@
+ pagination for subtopics + additional req for big articles
  custom font size based on letter count of topic
-
+ change orange colouring to be less jarring 
  toast shouldnt be open by default and then closed, swap this behaviour around
- 
- make code more concise and adopt dry, make an effort later to go through entire codebase and clean up code and make it nice
+ change sizing and prioritize graph in dom, make subtopics div smaller
+become opinionated - only turn on extra settings with a switch or create a settings button (hicks law)
+add root label in graph
+ai input middleman parsing gemini flash api
