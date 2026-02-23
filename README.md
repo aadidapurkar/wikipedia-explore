@@ -1,5 +1,6 @@
-# [Website](https://aadidapurkar.github.io/wikipedia-explore/) for Lazily Explored Wikipedia Topics
-Wikipedia exploration, starting at some root topic 
+# [Wikipedia Graph Explorer](https://aadidapurkar.github.io/wikipedia-explore/)
+A website which allows users to lazily explore related Wikipedia topics, <br.
+creating a Graph which can be viewed and downloaded.
 
 ### Prerequisites
 - Install [Node.js](https://nodejs.org/en/download)
@@ -33,7 +34,7 @@ Wikipedia exploration, starting at some root topic
     - typescript
         - `main.ts` - master MVC logic
         - `observable.ts` - user input / web request streams
-        - `types.ts`
+        - `types.ts` - state definitions and constants
         - `state.ts` - define actions which define reductions from oldState -> newState 
         - `util.ts` -
         - `render.ts` - define how a state should look in the view
