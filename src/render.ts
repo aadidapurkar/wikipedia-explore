@@ -90,7 +90,7 @@ export const render = (s: State) => {
     graph.on("beforeDrawing", (ctx) => {
       const width = ctx.canvas.width;
       const height = ctx.canvas.height;
-      ctx.fillStyle = "#ffffff"; 
+      ctx.fillStyle = "#fff"; 
       ctx.fillRect(0, 0, width, height);
     });
 

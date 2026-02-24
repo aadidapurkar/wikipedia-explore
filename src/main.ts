@@ -1,5 +1,4 @@
 // IMPORTS -----------------------------------------------------------------------------
-import { fromFetch } from "rxjs/fetch";
 import "./style.css";
 import {
   catchError,
@@ -45,6 +44,8 @@ state$.subscribe((s) => render(s))
 
 
 // MISC ----------------------------------------------------------------------
+// Note that the below code is causing side effects in the DOM
+// However, the reason for this is because these side effects are designed independent of state updates
 //state$.subscribe(console.log) // (DEBUG) Log state 
 
 // Clear topic input after submitting for UX/UI purposes
@@ -87,17 +88,16 @@ fromEvent(btnDL, "click").subscribe(downloadGraph);
 if (typeof(Storage) !== "undefined") {
   // Get visited before status
   const visitedBefore = localStorage.getItem("visitedBefore")
-
+  toast.classList.add("hidden");
   if (visitedBefore !== null) {
     // User has visited before, hide tooltips this session
     document.body.classList.add("no-tooltips");
-    closeToast()
-    console.log("Detected previous visit! Tooltips hidden.");
   } else {
     // User has not visited before, add to local storage but don't hide tooltips this session
     localStorage.setItem("visitedBefore", "true")
     console.log("No previous visit detected! Tooltips will be shown.");
     tooltipSwitch.checked = !document.body.classList.contains("no-tooltips");
+    toast.classList.remove("hidden");
     setTimeout(closeToast, 15000)
   }
 
