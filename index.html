@@ -11,8 +11,8 @@
       href="https://fonts.googleapis.com/css2?family=TikTok+Sans:opsz,wght@12..36,300..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="./assets/index-Bh9ohmJL.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BVs171UT.css">
+    <script type="module" crossorigin src="./assets/index-Q3frpE1D.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BvTOI2w7.css">
   </head>
   <body>
     <div class="container">
@@ -26,17 +26,20 @@
         </span>
         <button class="toast-close" onclick="closeToast()">&times;</button>
       </div>
-      <div
-        class="rootTopicContainer tooltip"
-        data-tip='This query decides the topic you start your exploration from. Keep your query short and title-like, e.g instead of "How to lose weight", try "Weight Loss"'
-      >
-        <input
-          type="text"
-          id="inputTopic"
-          placeholder="Enter root topic..."
-          autocomplete="off"
-        />
-        <button type="submit" id="btnExploreTopic">Explore</button>
+      <div class="rootTopicContainer">
+        <div
+          id="topicInputWrapper"
+          class="tooltip"
+          data-tip='This query decides the topic you start your exploration from. Keep your query short and title-like, e.g instead of "How to lose weight", try "Weight Loss"'
+        >
+          <input
+            type="text"
+            id="inputTopic"
+            placeholder="Enter root topic..."
+            autocomplete="off"
+          />
+          <button type="submit" id="btnExploreTopic">Explore</button>
+        </div>
         <button id="btnShowSettings">⚙️</button>
         <div id="settingsModal" class="hidden">
           <button id="btnCloseSettings">✖</button>
