@@ -555,3 +555,8 @@ position: fixed;
   position: absolute;
   right: 0;
 }
+
+#topicInputWrapper {
+  display: flex;
+  align-items: center;
+}

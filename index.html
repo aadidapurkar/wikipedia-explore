@@ -25,17 +25,20 @@
         </span>
         <button class="toast-close" onclick="closeToast()">&times;</button>
       </div>
-      <div
-        class="rootTopicContainer tooltip"
-        data-tip='This query decides the topic you start your exploration from. Keep your query short and title-like, e.g instead of "How to lose weight", try "Weight Loss"'
-      >
-        <input
-          type="text"
-          id="inputTopic"
-          placeholder="Enter root topic..."
-          autocomplete="off"
-        />
-        <button type="submit" id="btnExploreTopic">Explore</button>
+      <div class="rootTopicContainer">
+        <div
+          id="topicInputWrapper"
+          class="tooltip"
+          data-tip='This query decides the topic you start your exploration from. Keep your query short and title-like, e.g instead of "How to lose weight", try "Weight Loss"'
+        >
+          <input
+            type="text"
+            id="inputTopic"
+            placeholder="Enter root topic..."
+            autocomplete="off"
+          />
+          <button type="submit" id="btnExploreTopic">Explore</button>
+        </div>
         <button id="btnShowSettings">⚙️</button>
         <div id="settingsModal" class="hidden">
           <button id="btnCloseSettings">✖</button>

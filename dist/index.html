@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wiki Explore</title>
-
+    <title>Wiki Explore</title>
     <link rel="icon" type="image/x-icon" href="./assets/favicon-CjuuyoZc.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,8 +11,8 @@
       href="https://fonts.googleapis.com/css2?family=TikTok+Sans:opsz,wght@12..36,300..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="./assets/index-BrB2VpKa.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-D7kk1CcI.css">
+    <script type="module" crossorigin src="./assets/index-Bh9ohmJL.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BVs171UT.css">
   </head>
   <body>
     <div class="container">
@@ -38,33 +37,43 @@
           autocomplete="off"
         />
         <button type="submit" id="btnExploreTopic">Explore</button>
-        <div id="tooltip-label">
-          <span id="tooltipLabel">Toggle</span>
-          <span id="tooltipLabel">Tooltips</span>
-        </div>
+        <button id="btnShowSettings">⚙️</button>
+        <div id="settingsModal" class="hidden">
+          <button id="btnCloseSettings">✖</button>
+          <div id="tooltipContainer">
+            <div id="tooltip-label">
+              <span id="tooltipLabel">Toggle</span>
+              <span id="tooltipLabel">Tooltips</span>
+            </div>
 
-        <label class="switch">
-          <input id="tooltipSwitch" type="checkbox" />
-          <span class="slider"></span>
-        </label>
+            <label class="switch">
+              <input id="tooltipSwitch" type="checkbox" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div
+            id="order"
+            class="tooltip"
+            data-tip="Here, you can shuffle the related topics below, as well as reduce how many are shown to you. "
+          >
+            <select id="selectSubtopicOrder">
+              <option disabled selected hidden>Set Subtopic order</option>
+              <option value="default">Default</option>
+              <option value="random">Random</option>
+            </select>
+
+            <input
+              type="number"
+              id="inputSubtopicLimit"
+              placeholder="Subtopic Limit"
+            />
+          </div>
+        </div>
       </div>
     </div>
     <div id="loader" class="hidden">
       <div class="spinner"></div>
       <span id="loadingTxt">Exploring Wikipedia...</span>
-    </div>
-    <div
-      id="order"
-      class="tooltip"
-      data-tip="Here, you can shuffle the related topics below, as well as reduce how many are shown to you. "
-    >
-      <select id="selectSubtopicOrder">
-        <option disabled selected hidden>Set order</option>
-        <option value="default">Default</option>
-        <option value="random">Random</option>
-      </select>
-
-      <input type="number" id="inputSubtopicLimit" placeholder="Set Limit" />
     </div>
 
     <div
@@ -91,22 +100,22 @@
       >
         <div id="subtopicContainer"></div>
       </div>
-      <button
-        id="btnDownload"
-        class="tooltip"
-        data-tip="Save the graph you can see below as an image to your device."
-      >
-        Download Graph Image
-      </button>
+
       <div
         id="graphWrapper"
         class="tooltip"
         data-tip="Here, you can see a visual representation of your exploration so far."
       >
+        <button
+          id="btnDownload"
+          class="tooltip"
+          data-tip="Save the graph you can see below as an image to your device."
+        >
+          ⭳
+        </button>
         <div id="explorationGraph" class="tooltip" data-tip=""></div>
       </div>
     </div>
-
-
+
   </body>
 </html>
