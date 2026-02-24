@@ -85,12 +85,23 @@
 }
 
 #btnDownload {
-  padding: 0.5rem 1rem;
-  width: fit-content;
-  margin: 0.5rem auto;
-  font-size: 1rem;
-  visibility: hidden; /* hidden until a topic is explored */
-
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;          
+  visibility: hidden;  
+  font-size: 24px;
+  font-weight: bold;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin: 0;
+  border-radius: 50%;   
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }
 
 /* Subtopic Styling */
@@ -161,8 +172,8 @@ canvas {
   flex-direction: column; 
   min-height: 0;          
   width: 100%;
+  position: relative; 
 }
-
 
 #explorationGraph {
   border-radius: 1rem;
