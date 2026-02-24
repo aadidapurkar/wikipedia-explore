@@ -30,6 +30,9 @@ const toast = document.getElementById('toast')!;
 const btnDL = document.getElementById("btnDownload")! as HTMLButtonElement;
 const btnToastClose = document.querySelector(".toast-close")! as HTMLButtonElement;
 const tooltipSwitch = document.getElementById("tooltipSwitch")! as HTMLInputElement
+const btnShowSettings = document.getElementById("btnShowSettings")! as HTMLButtonElement;
+const settingsModal =  document.getElementById("settingsModal")! as HTMLDivElement;
+const btnCloseSettings = document.getElementById("btnCloseSettings")! as HTMLButtonElement;
 // MVC -----------------------------------------------------------------------------
 // (CONTROLLER) Merged stream of controller observables, mapped to Actions
 const action$ = merge(newTopic$, exploreSubtopic$, decrementTopic$, incrementTopic$, changeSubtopicOrdering$, changeSubtopicLimit$)
@@ -80,6 +83,10 @@ const downloadGraph = () => {
   document.body.removeChild(link);
 };
 
+const showSettingsModal = (status: string) => status == "visible" ? settingsModal.classList.remove("hidden") :  settingsModal.classList.add("hidden")
+// Settings modal listener
+fromEvent(btnShowSettings, "click").subscribe(() => showSettingsModal("visible"));
+fromEvent(btnCloseSettings, "click").subscribe(() => showSettingsModal("n"));
 // Download button event listener
 fromEvent(btnDL, "click").subscribe(downloadGraph);
 

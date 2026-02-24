@@ -47,7 +47,7 @@ export class RootTopic implements Action {
       ...s,
       currTopic: 0,
       topics: [this.rootTopic],
-      graph: { nodes: [{id: this.rootTopic.title, label: `ROOT: ${this.rootTopic.title}`, color: "#c9e4ff"}], edges: [] },
+      graph: { nodes: [{id: this.rootTopic.title, label: `ROOT ${this.rootTopic.title}`, color: "#c9e4ff", size: 30}], edges: [] },
       isLoading: false // <--- Data received, stop loading
     }
   }

@@ -1,6 +1,8 @@
-pagination for subtopics + additional req for big articles
-become opinionated - offload subtopic limit, ordering, tooltips toggle in settings (hicks law)
+Active Todos:
+N/A
 
 
-LEAVING OUT -- FOR APP SIMPLIFICATION - THIS WILL ADD COMPLEXITY AND REQUIRE A BACK ENDai input middleman parsing gemini flash api
-NON ISSUE - custom font size based on letter count of topic
+Discarded Todos:
+LEAVING OUT TO MINIMISE DEPENDENCIES/KEEP FRONT END ONLY PROJ - additional req for big articles -- use additional api endpoint / dont want to have to implement a separated backend for app speed, minimise dependencies
+LEAVING OUT TO MINIMISE DEPENDENCIES/KEEP FRONT END ONLY PROJ -- FOR APP SIMPLIFICATION - THIS WILL ADD COMPLEXITY AND REQUIRE A BACK ENDai input middleman parsing gemini flash api
+NON ISSUE at the moment - custom font size based on letter count of topic

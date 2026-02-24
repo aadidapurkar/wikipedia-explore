@@ -9,6 +9,7 @@
 #inputTopic {
   border-radius: 1rem;
   width: 50%;
+  max-width: 300px;
   font-size: 1.5rem;
 }
 
@@ -34,7 +35,6 @@
 #order {
   display: flex;
   justify-content: center;
-  visibility: hidden; /* hidden until a topic is explored */
 }
 
 #selectSubtopicOrder {
@@ -47,8 +47,9 @@
 #inputSubtopicLimit {
   border-radius: 1rem;
   font-size: 1rem;
-  margin-left: 1rem;
+  margin-left: 5px;
   margin-right: 5px;
+  max-width: 120px !important;
 }
 
 #topicContainer {
@@ -346,14 +347,14 @@ body.no-tooltips .tooltip::before {
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: gainsboro;
   transition: .4s;
   border-radius: 50%;
 }
 
 /* Change background color when checked */
 input:checked + .slider {
-  background-color: #c9e4ff;
+  background-color: darkgray;
 }
 
 /* Move the circle to the right when checked */
@@ -443,7 +444,8 @@ input:checked + .slider:before {
   display: flex;             
   align-items: center;       
   justify-content: center;  
-  width: 50%;             
+  width: 100%;
+  position: relative;             
 }
 
 #btnExploreTopic {
@@ -501,4 +503,55 @@ input:checked + .slider:before {
 #subtopicWrapper {
   display: flex;
   justify-content: center;
+}
+
+#settingsModal {
+position: fixed;
+  z-index: 1000; 
+  top: 20px;     /* Distance from top of screen */
+  right: 10px;   /* Distance from right of screen */
+  width: auto;   /* Only take up as much width as needed */
+  height: auto;  /* Only take up as much height as needed */
+  padding: 1.5rem;
+  
+  /* Aesthetics to make it look like a floating card */
+  background-color: #c9e4ff; 
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  
+  /* Layout the internal elements */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align content to the left */
+  gap: 1rem;
+
+}
+
+#tooltipContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+#btnCloseSettings {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 1rem;
+  background-color: transparent;
+  color: black;
+  border: 2px solid black;
+}
+
+#btnCloseSettings:hover {
+  background-color: black;
+  color: white;
+}
+
+#btnShowSettings {
+  font-size: 24px;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  right: 0;
 }

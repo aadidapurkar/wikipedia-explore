@@ -68,6 +68,7 @@ export const render = (s: State) => {
       { nodes: s.graph.nodes, edges: s.graph.edges },
       {
         nodes: {
+          color: "#949494",
           shape: "dot",
           size: 16,
           widthConstraint: {

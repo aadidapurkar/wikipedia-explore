@@ -36,33 +36,43 @@
           autocomplete="off"
         />
         <button type="submit" id="btnExploreTopic">Explore</button>
-        <div id="tooltip-label">
-          <span id="tooltipLabel">Toggle</span>
-          <span id="tooltipLabel">Tooltips</span>
-        </div>
+        <button id="btnShowSettings">⚙️</button>
+        <div id="settingsModal" class="hidden">
+          <button id="btnCloseSettings">✖</button>
+          <div id="tooltipContainer">
+            <div id="tooltip-label">
+              <span id="tooltipLabel">Toggle</span>
+              <span id="tooltipLabel">Tooltips</span>
+            </div>
 
-        <label class="switch">
-          <input id="tooltipSwitch" type="checkbox" />
-          <span class="slider"></span>
-        </label>
+            <label class="switch">
+              <input id="tooltipSwitch" type="checkbox" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div
+            id="order"
+            class="tooltip"
+            data-tip="Here, you can shuffle the related topics below, as well as reduce how many are shown to you. "
+          >
+            <select id="selectSubtopicOrder">
+              <option disabled selected hidden>Set Subtopic order</option>
+              <option value="default">Default</option>
+              <option value="random">Random</option>
+            </select>
+
+            <input
+              type="number"
+              id="inputSubtopicLimit"
+              placeholder="Subtopic Limit"
+            />
+          </div>
+        </div>
       </div>
     </div>
     <div id="loader" class="hidden">
       <div class="spinner"></div>
       <span id="loadingTxt">Exploring Wikipedia...</span>
-    </div>
-    <div
-      id="order"
-      class="tooltip"
-      data-tip="Here, you can shuffle the related topics below, as well as reduce how many are shown to you. "
-    >
-      <select id="selectSubtopicOrder">
-        <option disabled selected hidden>Set order</option>
-        <option value="default">Default</option>
-        <option value="random">Random</option>
-      </select>
-
-      <input type="number" id="inputSubtopicLimit" placeholder="Set Limit" />
     </div>
 
     <div
