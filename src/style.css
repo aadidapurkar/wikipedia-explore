@@ -91,18 +91,20 @@
   right: 10px;
   z-index: 10;          
   visibility: hidden;  
-  font-size: 24px;
-  font-weight: bold;
   width: 40px;
   height: 40px;
   padding: 0;
   margin: 0;
   border-radius: 50%;   
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border: 1px solid black;
   box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  cursor: pointer;
+  
+  background-color: white; 
+  background-image: url('download-icon.png');
+  background-size: 24px; 
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /* Subtopic Styling */
@@ -552,11 +554,18 @@ position: fixed;
 }
 
 #btnShowSettings {
-  font-size: 24px;
   background-color: transparent;
   border: none;
   position: absolute;
   right: 0;
+  cursor: pointer;
+  margin-left: 5px;
+  width: 32px;  
+  height: 32px;
+  background-image: url('settings-icon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 #topicInputWrapper {

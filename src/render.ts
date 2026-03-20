@@ -10,8 +10,6 @@ export const render = (s: State) => {
   const topicContainer = document.getElementById("topicContainer")!;
   const subtopicContainer = document.getElementById("subtopicContainer")!;
   const topicText = document.getElementsByClassName("topicText")[0]!;
-  const stps = document.getElementById("stps")!;
-  const stepsText = document.getElementById("stepsAway")!;
   const selectOrder = document.getElementById("order")!;
   const explorationGraphDiv = document.getElementById("explorationGraph")!;
   const btnDL = document.getElementById("btnDownload")! as HTMLButtonElement;
@@ -20,17 +18,17 @@ export const render = (s: State) => {
 
   // make elements visible only once a topic is explored
   if (s.currTopic !== undefined) {
-    setVisibility([topicContainer,stps,selectOrder,btnDL,explorationContainer],"visible")
+    setVisibility([topicContainer,selectOrder,btnDL,explorationContainer],"visible")
   }
 
 
   if (s.isLoading) {
     loader.classList.remove("hidden");
-    setVisibility([topicContainer, subtopicContainer, explorationContainer, explorationGraphDiv, btnDL, stps, selectOrder], "hidden")
+    setVisibility([topicContainer, subtopicContainer, explorationContainer, explorationGraphDiv, btnDL, selectOrder], "hidden")
     return; // prevent below code from executing
   } else {
     loader.classList.add("hidden");
-    setVisibility([topicContainer, subtopicContainer, explorationContainer, explorationGraphDiv, btnDL, stps, selectOrder], "visible")
+    setVisibility([topicContainer, subtopicContainer, explorationContainer, explorationGraphDiv, btnDL, selectOrder], "visible")
   }
 
   // extra guard check
@@ -38,8 +36,8 @@ export const render = (s: State) => {
     return;
   }
 
-  // set heading
-  stepsText.textContent = `${s.currTopic!}`;
+  // // set heading
+  // stepsText.textContent = `${s.currTopic!}`;
   topicText.textContent = s.topics[s.currTopic!].title;
   topicText.id = `${s.currTopic!}`;
 
