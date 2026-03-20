@@ -47,7 +47,7 @@ export class RootTopic implements Action {
       ...s,
       currTopic: 0,
       topics: [this.rootTopic],
-      graph: { nodes: [{id: this.rootTopic.title, label: `ROOT ${this.rootTopic.title}`, color: "#c9e4ff", size: 30}], edges: [] },
+      graph: { nodes: [{id: this.rootTopic.title, label: `ROOT ${this.rootTopic.title}`, color: "#c9e4ff", size: 16}], edges: [] },
       isLoading: false // <--- Data received, stop loading
     }
   }
@@ -60,6 +60,9 @@ export class AddTopic implements Action {
     public readonly currTopicIndex: number,
   ) {}
   apply(s: State): State {
+    if (s.graph.nodes.some(node => node.id === this.newTopic.title)) {
+      return s;
+    }
     const parentTopic = s.topics[this.currTopicIndex];
     // Create new node and edge
     const newNode = { id: this.newTopic.title, label: this.newTopic.title, color: "black"};
