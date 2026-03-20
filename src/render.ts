@@ -5,6 +5,8 @@ import { setVisibility, shuffleArray } from "./util";
 // A function which takes a state and updates the view correspondingly
 
 let graph: Network | null = null;
+let currentActiveNodeId: string | null = null; 
+let pulsePhase = 0;                           
 export const render = (s: State) => {
   // HTML elems
   const topicContainer = document.getElementById("topicContainer")!;
@@ -35,7 +37,7 @@ export const render = (s: State) => {
   if (s.currTopic === undefined || s.topics.length === 0) {
     return;
   }
-
+  currentActiveNodeId = s.topics[s.currTopic!].title; // update active node id
   // // set heading
   // stepsText.textContent = `${s.currTopic!}`;
   topicText.textContent = s.topics[s.currTopic!].title;
