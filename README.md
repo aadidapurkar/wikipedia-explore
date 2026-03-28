@@ -1,5 +1,5 @@
 # [Wikipedia Graph Explorer](https://aadidapurkar.github.io/wikipedia-explore/)
-A website which allows users to lazily explore related Wikipedia topics, <br.
+A website which allows users to lazily explore related Wikipedia topics,
 creating a Graph which can be viewed and downloaded.
 
 ### Prerequisites
